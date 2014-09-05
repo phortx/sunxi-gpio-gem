@@ -8,11 +8,15 @@ Gem::Specification.new do |s|
   s.authors     = ["phortx"]
   s.email       = 'benny@itws.de'
   s.homepage    = 'https://github.com/phortx/sunxi-gpio-gem'
-  s.extensions  = ['ext/sunxi-gpio/extconf.rb']
   s.description = s.summary
 
   s.files = Dir.glob('lib/*.rb') + Dir.glob('ext/**/**/*.{c,h}') + Dir.glob('ext/**/*.{c,h,rb}')
+  s.require_paths << 'ext/sunxi-gpio'
+  s.extensions << 'ext/sunxi-gpio/extconf.rb'
   s.extra_rdoc_files = ['README.md']
 
   s.required_ruby_version = '>= 1.9.3'
+
+  s.add_development_dependency 'rake', '~> 10.1'
+  s.add_development_dependency 'rake-compiler', '~> 0.9'
 end
