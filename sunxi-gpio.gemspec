@@ -10,8 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/phortx/sunxi-gpio-gem'
   s.description = s.summary
 
-  s.files = Dir.glob('lib/*.rb') + Dir.glob('ext/**/**/*.{c,h}') + Dir.glob('ext/**/*.{c,h,rb}')
-  s.require_paths << 'ext/sunxi-gpio'
+  s.files = Dir.glob('lib/**/*.rb') + Dir.glob('ext/**/**/*.{c,h}') + Dir.glob('ext/**/*.{c,h,rb}')
   s.extensions << 'ext/sunxi-gpio/extconf.rb'
   s.extra_rdoc_files = ['README.md']
 
