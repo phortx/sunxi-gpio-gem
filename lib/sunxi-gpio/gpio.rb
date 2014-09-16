@@ -2,6 +2,13 @@ require 'sunxi-gpio/gpio_lib'
 
 module Sunxi
   class GPIO
+    INIT_ERRORS = [
+      :SETUP_OK,
+      :SETUP_DEVMEM_FAIL,
+      :SETUP_MALLOC_FAIL,
+      :SETUP_MMAP_FAIL
+    ]
+
     INPUT = 0
     OUTPUT = 1
 
@@ -52,6 +59,7 @@ module Sunxi
     def initialize(pin, direction)
       @pin = pin
       ::Gpio_lib.sunxi_gpio_set_cfgpin(pin, direction)
+      ::Gpio_lib.sunxi_gpio_init
     end
 
     def write(value)
