@@ -17,7 +17,7 @@ gem install sunxi-gpio
 ```ruby
 require 'sunxi-gpio/gpio'
 
-pin = Sunxi::GPIO.new(Sunxi::GPIO.PIN[:PB2], Sunxi::GPIO.OUTPUT)
+pin = Sunxi::GPIO.new(Sunxi::GPIO::PINS[:PB2], Sunxi::GPIO::OUTPUT)
 pin.write 1
 sleep 1
 pin.write 0
