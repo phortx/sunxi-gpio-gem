@@ -1,7 +1,7 @@
 sunxi-gpio-gem
 ==============
 
-Native Ruby Extension to work with Sunxi GPIO
+Native Ruby Extension to work with Sunxi GPIO. This gem is currently under development and it only support wirting.
 
 
 
@@ -14,4 +14,11 @@ gem install sunxi-gpio
 
 ## Usage
 
-TODO
+```ruby
+require 'sunxi-gpio/gpio'
+
+pin = Sunxi::GPIO.new(Sunxi::GPIO.PIN[:PB2], Sunxi::GPIO.OUTPUT)
+pin.write 1
+sleep 1
+pin.write 0
+```
