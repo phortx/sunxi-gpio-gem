@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sunxi-gpio'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.license     = 'GNU General Public License v3'
   s.date        = '2014-09-05'
   s.platform    = Gem::Platform::RUBY
