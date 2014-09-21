@@ -58,12 +58,16 @@ module Sunxi
     # pin is one of PINS, direction is either INPUT or OUTPUT
     def initialize(pin, direction)
       @pin = pin
-      ::Gpio_lib.sunxi_gpio_set_cfgpin(pin, direction)
       ::Gpio_lib.sunxi_gpio_init
+      ::Gpio_lib.sunxi_gpio_set_cfgpin(pin, direction)
     end
 
     def write(value)
       ::Gpio_lib.sunxi_gpio_output(@pin, value)
+    end
+
+    def read
+     res= ::Gpio_lib.sunxi_gpio_input(@pin)
     end
   end
 end
