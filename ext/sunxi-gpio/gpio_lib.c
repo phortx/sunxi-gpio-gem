@@ -147,6 +147,24 @@ int sunxi_gpio_input(unsigned int pin) {
 
     return (dat & 0x1);
 }
+
+// http://www.cubieforums.com/index.php?topic=2881.15
+int sunxi_gpio_set_pull(unsigned int pin, unsigned int val) {
+    unsigned int pull;
+    unsigned int bank = GPIO_BANK(pin);
+    unsigned int index = GPIO_PULL_INDEX(pin);
+    unsigned int offset = GPIO_PULL_OFFSET(pin);
+    struct sunxi_gpio *pio = &((struct sunxi_gpio_reg *)SUNXI_PIO_BASE)->gpio_bank[bank];
+
+    pull = *(&pio->pull[0] + index);
+    pull &= ~(0x3 << offset);
+    pull |= val << offset;
+
+    *(&pio->pull[0] + index) = pull;
+
+    return 0;
+}
+
 void sunxi_gpio_cleanup(void)
 {
     unsigned int PageSize;
