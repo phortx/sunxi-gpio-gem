@@ -29,12 +29,8 @@ pin.off
 ### Watching
 
 ```ruby
-require 'sunxi_gpio/pin'
-
-pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
-
-pin.watch do
-  puts "Pin changed from #{last_value} to #{value}"
+  pin_input.watch(0) do
+  puts "***** I am in the block.... YEAH************"
 end
 ```
 
