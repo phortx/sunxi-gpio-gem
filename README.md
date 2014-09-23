@@ -14,11 +14,32 @@ gem install sunxi-gpio
 
 ## Usage
 
-```ruby
-require 'sunxi-gpio/gpio'
+### Simple writing
 
-pin = Sunxi::GPIO.new(Sunxi::GPIO::PINS[:PB2], Sunxi::GPIO::OUTPUT)
-pin.write 1
+```ruby
+require 'sunxi_gpio/pin'
+
+pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
+pin.on
 sleep 1
-pin.write 0
+pin.off
 ```
+
+
+### Watching
+
+```ruby
+require 'sunxi_gpio/pin'
+
+pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
+
+pin.watch do
+  puts "Pin changed from #{last_value} to #{value}"
+end
+```
+
+
+## Contributors
+
+* [phortx](https://github.com/phortx)
+* [happychriss](https://github.com/happychriss)

@@ -1,5 +1,5 @@
-module Sunxi
-  module GpioPinValues
+module SunxiGPIO
+  module PinValues
     INIT_ERRORS = [
         :SETUP_OK,
         :SETUP_DEVMEM_FAIL,
