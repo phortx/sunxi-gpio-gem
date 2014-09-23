@@ -55,6 +55,10 @@ struct sunxi_gpio_reg {
 #define GPIO_CFG_INDEX(pin)	(((pin) & 0x1F) >> 3)
 #define GPIO_CFG_OFFSET(pin)	((((pin) & 0x1F) & 0x7) << 2)
 
+#define GPIO_PULL_INDEX(pin)	(((pin) & 0x1F) >> 4)
+#define GPIO_PULL_OFFSET(pin)	((((pin) & 0x1F) & 0xf) << 1)
+
+
 /* GPIO bank sizes */
 #define SUNXI_GPIO_A_NR		(32)
 #define SUNXI_GPIO_B_NR		(32)
@@ -92,6 +96,7 @@ enum sunxi_gpio_number {
 #define SUNXI_GPI(_nr) (SUNXI_GPIO_I_START + (_nr))
 
 /* GPIO pin function config */
+
 #define SUNXI_GPIO_INPUT (0)
 #define SUNXI_GPIO_OUTPUT (1)
 #define SUNXI_GPIO_PER (2)
@@ -150,6 +155,6 @@ extern int sunxi_gpio_set_cfgpin(unsigned int pin, unsigned int val);
 extern int sunxi_gpio_get_cfgpin(unsigned int pin);
 extern int sunxi_gpio_output(unsigned int pin, unsigned int val);
 extern void sunxi_gpio_cleanup(void);
-
+extern int sunxi_gpio_set_pull(unsigned int pin, unsigned int val);
 extern unsigned int SUNXI_PIO_BASE;
 #endif

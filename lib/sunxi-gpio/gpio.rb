@@ -1,69 +1,127 @@
 require 'sunxi-gpio/gpio_lib'
+require 'sunxi-gpio/gpio_pin_values'
 
 module Sunxi
   class GPIO
-    INIT_ERRORS = [
-      :SETUP_OK,
-      :SETUP_DEVMEM_FAIL,
-      :SETUP_MALLOC_FAIL,
-      :SETUP_MMAP_FAIL
-    ]
 
-    INPUT = 0
-    OUTPUT = 1
+    attr_reader :pin, :last_value, :direction, :invert
 
-    # A =   0
-    # B =  32
-    # C =  64
-    # D =  95
-    # E = 128
-    # F = 160
-    # G = 192 
-    # H = 224
-    # I = 256
+    include Sunxi::GpioPinValues
 
-    PINS = {
-      PB14: 46,
-      PB15: 47,
-      PB16: 48,
-      PB17: 49,
-      PB18: 50,
-      PB19: 51,
-      PB2: 34,
-      PB3: 35,
-      PB4: 36,
-      PC19: 83,
-      PC20: 84,
-      PC21: 85,
-      PC22: 86,
-      PG0: 192,
-      PG1: 193,
-      PG10: 202,
-      PG11: 203,
-      PG2: 194,
-      PG3: 195,
-      PG4: 196,
-      PG5: 197,
-      PG6: 198,
-      PG7: 199,
-      PG8: 200,
-      PG9: 201,
-      PI14: 270,
-      PI15: 271,
-      PI20: 276,
-      PI21: 277,
-      PI3: 259
-    }
+    # Cleanup GPIO interface to make it available for other programs
+    def self.close
+      ::Gpio_lib.sunxi_gpio_cleanup()
+    end
 
-    # pin is one of PINS, direction is either INPUT or OUTPUT
-    def initialize(pin, direction)
-      @pin = pin
-      ::Gpio_lib.sunxi_gpio_set_cfgpin(pin, direction)
+    def self.open
       ::Gpio_lib.sunxi_gpio_init
     end
 
-    def write(value)
-      ::Gpio_lib.sunxi_gpio_output(@pin, value)
+
+    def initialize(options)
+      options = {:direction => :in,
+                 :invert => false,
+                 :pull => :off}.merge(options)
+
+      @pin = options[:pin]
+      @direction = options[:direction]
+      @invert = options[:invert]
+      @pull = options[:pull]
+      raise "Invalid pull mode. Options are :up, :down or :float (default)" unless [:up, :down, :float, :off].include? @pull
+      raise "Unable to use pull-ups : pin direction must be ':in' for this" if @direction != :in && [:up, :down].include?(@pull)
+      raise "Invalid direction. Options are :in or :out" unless [:in, :out].include? @direction
+
+
+      if @direction == :out
+        ::Gpio_lib.sunxi_gpio_set_cfgpin(@pin, GPIO_DIRECTION_OUTPUT)
+      else
+        ::Gpio_lib.sunxi_gpio_set_cfgpin(@pin, GPIO_DIRECTION_INPUT)
+      end
+      pull!(@pull)
+      read
     end
+
+    # If the pin has been initialized for output this method will set the logic level high.
+    def on
+      ::Gpio_lib.sunxi_gpio_output(@pin, GPIO_HIGH) if direction == :out
+    end
+
+    # If the pin has been initialized for output this method will set the logic level low
+    def off
+      ::Gpio_lib.sunxi_gpio_output(@pin, GPIO_LOW) if direction == :out
+    end
+
+    def read
+      @last_value = @value
+      val = ::Gpio_lib.sunxi_gpio_input(@pin)
+      @value = invert ? (val ^ 1) : val
+    end
+
+    def pull!(state)
+      return nil if @direction != :in
+      @pull = case state
+                when :up then
+                  GPIO_PUD_UP
+                when :down then
+                  GPIO_PUD_DOWN
+                # :float and :off are just aliases
+                when :float, :off then
+                  GPIO_PUD_OFF
+                else
+                  nil
+              end
+#### Not working yet
+#     ::Gpio_lib.sunxi_gpio_set_pull(@pin, @pull) if @pull
+      @pull
+    end
+
+
+# If the pin direction is input, it will return the current state of pull-up/pull-down resistor, either :up, :down or :off.
+    def pull?
+      case @pull
+        when GPIO_PUD_UP then
+          :up
+        when GPIO_PUD_DOWN then
+          :down
+        else
+          :off
+      end
+    end
+
+# Tests if the logic level has changed since the pin was last read.
+    def changed?
+      last_value != value
+    end
+
+    # Watch the pin to change to the watch_value (ON or OFF) - it only triggered when switching from invert value to new value
+    def watch(watch_value, &block)
+
+      new_thread = Thread.new do
+
+        prev_value=(self.read==GPIO_HIGH ? GPIO_LOW : GPIO_HIGH)
+
+        loop do
+
+          current_value=self.read
+          prev_value!=current_value ? flip=true : flip=false
+
+          if (current_value==watch_value) and flip
+            self.instance_exec &block
+          end
+
+          prev_value=current_value
+
+          sleep(WATCH_POLLING_SEC)
+
+        end
+      end
+
+      new_thread.abort_on_exception = true
+      new_thread
+    end
+
+    private
+
+
   end
 end
