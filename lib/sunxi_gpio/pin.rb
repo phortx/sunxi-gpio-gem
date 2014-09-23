@@ -1,5 +1,5 @@
 require 'sunxi_gpio/gpio_lib'
-require 'sunxi-gpio/pin_values'
+require 'sunxi_gpio/pin_values'
 ###
 
 module SunxiGPIO
