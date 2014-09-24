@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    sunxi-gpio (0.0.2)
+    sunxi_gpio (0.0.3)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     rake (10.3.2)
     rake-compiler (0.9.3)
@@ -16,4 +16,4 @@ PLATFORMS
 DEPENDENCIES
   rake (~> 10.1)
   rake-compiler (~> 0.9)
-  sunxi-gpio!
+  sunxi_gpio!
