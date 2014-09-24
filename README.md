@@ -19,12 +19,14 @@ gem install sunxi_gpio
 ```ruby
 require 'sunxi_gpio/pin'
 
-Sunxi::GPIO.open
+SunxiGPIO::Pin.open
+
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
 pin.on
 sleep 1
 pin.off
-Sunxi::GPIO.close
+
+SunxiGPIO::Pin.close
 ```
 
 ### Simple reading
@@ -32,7 +34,8 @@ Sunxi::GPIO.close
 ```ruby
 require 'sunxi_gpio/pin'
 
-Sunxi::GPIO.open
+SunxiGPIO::Pin.open
+
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :in)
 
 10.times do
@@ -40,6 +43,8 @@ pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :in)
   puts "result: #{value}"
   sleep 1
 end
+
+SunxiGPIO::Pin.close
 ```
 
 
@@ -48,14 +53,15 @@ end
 ```ruby
 require 'sunxi_gpio/pin'
 
-Sunxi::GPIO.open
+SunxiGPIO::Pin.open
+
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
 
 pin.watch do
   puts "Pin changed from #{last_value} to #{value}"
 end
 
-Sunxi::GPIO.close
+SunxiGPIO::Pin.close
 ```
 
 
