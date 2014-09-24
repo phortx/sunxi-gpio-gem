@@ -1,4 +1,4 @@
-require 'sunxi-gpio/gpio_lib'
+require 'sunxi_gpio/gpio_lib'
 require 'sunxi_gpio/pin_values'
 
 module SunxiGPIO
