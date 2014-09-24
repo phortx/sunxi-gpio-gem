@@ -1,5 +1,5 @@
-sunxi-gpio-gem
-==============
+sunxi_gpio gem
+===============
 
 Native Ruby Extension to work with Sunxi GPIO. This gem is currently **beta**. It supports writing, reading, watching.  
 
@@ -8,7 +8,7 @@ Native Ruby Extension to work with Sunxi GPIO. This gem is currently **beta**. I
 ## Installtion
 
 ```
-gem install sunxi-gpio
+gem install sunxi_gpio
 ```
 
 
