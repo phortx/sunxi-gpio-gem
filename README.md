@@ -48,7 +48,8 @@ SunxiGPIO::Pin.close
 ```
 
 
-### Watching
+### Watches the pin going to status in parameter and executes the block. 
+### block will only be triggered with a status change is seen.
 
 ```ruby
 require 'sunxi_gpio/pin'
@@ -57,8 +58,8 @@ SunxiGPIO::Pin.open
 
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
 
-pin.watch do
-  puts "Pin changed from #{last_value} to #{value}"
+pin.watch(SunxiGPIO::PinValues::GPIO_LOW) do
+  puts "I am in the loop with value #{pin_input.read}"
 end
 
 SunxiGPIO::Pin.close
