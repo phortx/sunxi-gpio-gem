@@ -59,7 +59,7 @@ SunxiGPIO::Pin.open
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
 
 pin.watch(SunxiGPIO::PinValues::GPIO_LOW) do
-  puts "I am in the loop with value #{pin_input.read}"
+  puts "I am in the loop with value #{pin.read}"
 end
 
 SunxiGPIO::Pin.close
