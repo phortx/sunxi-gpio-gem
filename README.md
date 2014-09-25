@@ -63,6 +63,20 @@ pin.watch(SunxiGPIO::PinValues::GPIO_LOW) do
 end
 
 SunxiGPIO::Pin.close
+
+```
+### Enable pull for a pin
+### When using pins as input, you can use internal resistors to pull the pin
+### up or pull down. This is important if you use open-collector sensors
+### which have floating output in some states. Pull can be used as :up or :down -depending of the type of layout.
+
+```ruby
+SunxiGPIO::Pin.open
+
+pin = SunxiGPIO::Pin.new(pin: :PI15, direction: :in, pull: :up)
+value=pin.read
+
+SunxiGPIO::Pin.close
 ```
 
 
