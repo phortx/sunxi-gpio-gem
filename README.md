@@ -47,9 +47,9 @@ end
 SunxiGPIO::Pin.close
 ```
 
-
-### Watches the pin going to status in parameter and executes the block. 
-### block will only be triggered with a status change is seen.
+### Watch
+Watches the pin going to status in parameter and executes the block. 
+Block will only be triggered with a status change is seen.
 
 ```ruby
 require 'sunxi_gpio/pin'
@@ -66,9 +66,8 @@ SunxiGPIO::Pin.close
 
 ```
 ### Enable pull for a pin
-### When using pins as input, you can use internal resistors to pull the pin
-### up or pull down. This is important if you use open-collector sensors
-### which have floating output in some states. Pull can be used as :up or :down -depending of the type of layout.
+When using pins as input, you can use internal resistors to pull the pin up or pull down. This is important if you use open-collector sensors
+which have floating output in some states. Pull can be used as :up or :down -depending of the type of layout.
 
 ```ruby
 SunxiGPIO::Pin.open
