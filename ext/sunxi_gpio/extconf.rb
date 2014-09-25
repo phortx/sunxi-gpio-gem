@@ -1,3 +1,3 @@
 require 'mkmf'
 
-create_makefile 'sunxi_gpio'
+create_makefile 'gpio_lib'

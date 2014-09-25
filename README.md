@@ -1,5 +1,5 @@
-sunxi-gpio-gem
-==============
+sunxi_gpio gem
+===============
 
 Native Ruby Extension to work with Sunxi GPIO. This gem is currently **beta**. It supports writing, reading, watching.  
 
@@ -8,7 +8,7 @@ Native Ruby Extension to work with Sunxi GPIO. This gem is currently **beta**. I
 ## Installtion
 
 ```
-gem install sunxi-gpio
+gem install sunxi_gpio
 ```
 
 
@@ -19,19 +19,49 @@ gem install sunxi-gpio
 ```ruby
 require 'sunxi_gpio/pin'
 
+SunxiGPIO::Pin.open
+
 pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
 pin.on
 sleep 1
 pin.off
+
+SunxiGPIO::Pin.close
+```
+
+### Simple reading
+
+```ruby
+require 'sunxi_gpio/pin'
+
+SunxiGPIO::Pin.open
+
+pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :in)
+
+10.times do
+  value = pin.read
+  puts "result: #{value}"
+  sleep 1
+end
+
+SunxiGPIO::Pin.close
 ```
 
 
 ### Watching
 
 ```ruby
-  pin_input.watch(0) do
-  puts "***** I am in the block.... YEAH************"
+require 'sunxi_gpio/pin'
+
+SunxiGPIO::Pin.open
+
+pin = SunxiGPIO::Pin.new(pin: :PB2, direction: :out)
+
+pin.watch do
+  puts "Pin changed from #{last_value} to #{value}"
 end
+
+SunxiGPIO::Pin.close
 ```
 
 

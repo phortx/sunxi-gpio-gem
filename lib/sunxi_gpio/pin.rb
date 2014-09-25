@@ -1,6 +1,5 @@
 require 'sunxi_gpio/gpio_lib'
 require 'sunxi_gpio/pin_values'
-###
 
 module SunxiGPIO
   class Pin
@@ -84,7 +83,7 @@ module SunxiGPIO
               end
       
       #### Not working yet
-       ::Gpio_lib.sunxi_gpio_set_pull(@pin, @pull) if @pull
+      # ::Gpio_lib.sunxi_gpio_set_pull(@pin, @pull) if @pull
       @pull
     end
 
