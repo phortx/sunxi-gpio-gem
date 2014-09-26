@@ -58,6 +58,9 @@ struct sunxi_gpio_reg {
 #define GPIO_PULL_INDEX(pin)	(((pin) & 0x1F) >> 4)
 #define GPIO_PULL_OFFSET(pin)	((((pin) & 0x1F) & 0xf) << 1)
 
+#define SUNXI_GPIO_PULL_DISABLE 0
+#define SUNXI_GPIO_PULL_UP 1
+#define SUNXI_GPIO_PULL_DOVN 2
 
 /* GPIO bank sizes */
 #define SUNXI_GPIO_A_NR		(32)

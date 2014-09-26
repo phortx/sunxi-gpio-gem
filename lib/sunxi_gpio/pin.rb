@@ -66,7 +66,7 @@ module SunxiGPIO
       @value = invert ? (val ^ 1) : val
     end
 
-    
+    #
     def pull!(state)
       return nil if @direction != :in
       
@@ -82,8 +82,7 @@ module SunxiGPIO
                   nil
               end
       
-      #### Not working yet
-      # ::Gpio_lib.sunxi_gpio_set_pull(@pin, @pull) if @pull
+      ::Gpio_lib.sunxi_gpio_set_pull(@pin, @pull) if @pull
       @pull
     end
 

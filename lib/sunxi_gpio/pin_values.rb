@@ -8,8 +8,8 @@ module SunxiGPIO
     ]
 
     GPIO_PUD_OFF = 0
-    GPIO_PUD_DOWN = 1
-    GPIO_PUD_UP = 2
+    GPIO_PUD_DOWN = 2
+    GPIO_PUD_UP = 1
 
     GPIO_HIGH = 1
     GPIO_LOW = 0
