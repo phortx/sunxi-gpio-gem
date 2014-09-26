@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sunxi_gpio (0.0.4)
+    sunxi_gpio (0.1.0)
 
 GEM
   remote: https://rubygems.org/
