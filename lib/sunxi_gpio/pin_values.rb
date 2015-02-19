@@ -59,7 +59,10 @@ module SunxiGPIO
         PI15: 271,
         PI20: 276,
         PI21: 277,
-        PI3: 259
+        PI3: 259,
+        PH07: 231, #green status
+        PH20: 244, #organge status
+        PH11: 235 #white status
     }
   end
 end

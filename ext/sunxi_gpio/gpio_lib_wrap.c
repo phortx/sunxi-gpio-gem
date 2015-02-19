@@ -2045,6 +2045,38 @@ fail:
 
 
 SWIGINTERN VALUE
+_wrap_sunxi_gpio_set_pull(int argc, VALUE *argv, VALUE self) {
+  unsigned int arg1 ;
+  unsigned int arg2 ;
+  unsigned int val1 ;
+  int ecode1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  int result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_unsigned_SS_int(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "unsigned int","sunxi_gpio_set_pull", 1, argv[0] ));
+  } 
+  arg1 = (unsigned int)(val1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "unsigned int","sunxi_gpio_set_pull", 2, argv[1] ));
+  } 
+  arg2 = (unsigned int)(val2);
+  result = (int)sunxi_gpio_set_pull(arg1,arg2);
+  vresult = SWIG_From_int((int)(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
 _wrap_sunxi_gpio_cleanup(int argc, VALUE *argv, VALUE self) {
   if ((argc < 0) || (argc > 0)) {
     rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
@@ -2334,6 +2366,7 @@ SWIGEXPORT void Init_gpio_lib(void) {
   rb_define_module_function(mGpio_lib, "sunxi_gpio_set_cfgpin", _wrap_sunxi_gpio_set_cfgpin, -1);
   rb_define_module_function(mGpio_lib, "sunxi_gpio_get_cfgpin", _wrap_sunxi_gpio_get_cfgpin, -1);
   rb_define_module_function(mGpio_lib, "sunxi_gpio_output", _wrap_sunxi_gpio_output, -1);
+  rb_define_module_function(mGpio_lib, "sunxi_gpio_set_pull", _wrap_sunxi_gpio_set_pull, -1);
   rb_define_module_function(mGpio_lib, "sunxi_gpio_cleanup", _wrap_sunxi_gpio_cleanup, -1);
 }
 

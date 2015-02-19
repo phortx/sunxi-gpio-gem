@@ -38,3 +38,5 @@ build/
 build_gpio_wrap.sh
 test.rb
 testit.sh
+drb_server.rb
+pin_client.rb
